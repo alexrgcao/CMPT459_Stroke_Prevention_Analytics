@@ -1,8 +1,12 @@
-# Rule 1: Data Preprocessing
+rule all:
+    input:
+        "data/processed/healthcare-dataset-stroke-data-processed.csv"
+
+# Preprocess Rule
 rule preprocess:
     input:
-        "data/heart_stroke_data.csv"
+        "data/raw/healthcare-dataset-stroke-data.csv"
     output:
-        "output/preprocessed_data.csv"
+        "data/processed/healthcare-dataset-stroke-data-processed.csv"
     script:
         "scripts/preprocess.py"

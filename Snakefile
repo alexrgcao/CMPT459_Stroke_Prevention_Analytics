@@ -1,6 +1,6 @@
-rule all:
-    input:
-        "data/processed/healthcare-dataset-stroke-data-processed.csv"
+#rule all:
+#    input:
+#        "data/processed/healthcare-dataset-stroke-data-processed.csv"
 
 # Preprocess Rule
 rule preprocess:

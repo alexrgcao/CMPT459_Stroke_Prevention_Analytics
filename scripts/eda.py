@@ -18,7 +18,7 @@ def plot_histograms(data, output_dir):
         plt.savefig(os.path.join(output_dir, f"distribution_{col}.png"))
         plt.close()
 
-
+'''
 def plot_categorical_distributions(data, output_dir):
     """Plot count plots for all categorical features."""
     categorical_cols = data.select_dtypes(include=['object']).columns
@@ -29,7 +29,7 @@ def plot_categorical_distributions(data, output_dir):
         plt.xticks(rotation=45)
         plt.savefig(os.path.join(output_dir, f"count_{col}.png"), bbox_inches='tight')
         plt.close()
-
+'''
 
 def plot_correlation_heatmap(data, output_dir):
     """Plot a correlation heatmap for numerical features."""
@@ -62,7 +62,7 @@ def main(input_file, output_dir):
 
     # Generate and save plots
     plot_histograms(data, output_dir)
-    plot_categorical_distributions(data, output_dir)
+    #plot_categorical_distributions(data, output_dir)
     plot_correlation_heatmap(data, output_dir)
     plot_boxplot(data, output_dir)
 

@@ -12,12 +12,7 @@ def load_data(input_file):
 def clean_feature(data):
     data.drop(columns=['id'], inplace=True)
 
-    data = data.loc[data["gender"] != "Other"].copy()
-    data.loc[:, "gender"] = data["gender"].map({"Female": 0, "Male": 1})
-
-    data['ever_married'] = data['ever_married'].map({'Yes': 1, 'No': 0})
-
-    data['Residence_type'] = data['Residence_type'].map({'Urban': 1, 'Rural': 0})
+    data = data.drop(columns=['ever_married', 'Residence_type', 'gender'], errors='ignore')
 
     data["bmi"] = pd.to_numeric(data["bmi"], errors="coerce")
     data["bmi"].fillna(data["bmi"].mean(), inplace=True)
@@ -36,8 +31,10 @@ def bin_glucose_levels(data, n_clusters=3):
     data["glucose_level_cluster"] = kmeans.fit_predict(data[["avg_glucose_level"]])
     return data
 
-def scale_all_numerical_features(data):
+def scale_all_numerical_features(data, exclude_columns=['Residence_type', 'ever_married', 'stroke']):
     numerical_cols = data.select_dtypes(include=['float64', 'int64']).columns
+
+    numerical_cols = [col for col in numerical_cols if col not in exclude_columns]
 
     scaler = RobustScaler()
     data[numerical_cols] = scaler.fit_transform(data[numerical_cols])
@@ -54,6 +51,7 @@ def one_hot_encode(data):
 
 def main(input_file, output_file):
     data = load_data(input_file)
+    
     data = clean_feature(data)
     data = bin_glucose_levels(data)
     data = scale_all_numerical_features(data)

@@ -45,6 +45,17 @@ rule isolation_forest:
     script:
         "scripts/isolation_forest.py"
 
+rule local_outlier_factor:
+    input:
+        "data/processed/healthcare-dataset-stroke-data-oversampled.csv"
+    output:
+        "output/outlier_detection/local_outlier_factor/lof_outlier_detection_results.csv",
+        "output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv",
+        "output/outlier_detection/local_outlier_factor/lof_outlier_detection_plot.png",
+        "output/outlier_detection/local_outlier_factor/lof_tuning_results.json"
+    script:
+        "scripts/local_outlier_factor.py"
+
 #Clustering DBSCAN Rule
 rule dbscan:
     input:
@@ -66,6 +77,31 @@ rule dbscan_with_outliers_removal:
         "output/clustering/dbscan_clustering_results_metrics_with_outliers_removal.json",
     script:
         "scripts/dbscan.py"
+
+# Clustering KMeans Rule
+rule kmeans:
+    input:
+        "data/processed/healthcare-dataset-stroke-data-oversampled.csv"
+    output:
+        "output/clustering/kmeans/kmeans_clustering_results.csv",
+        "output/clustering/kmeans/kmeans_clustering_plot.png",
+        "output/clustering/kmeans/kmeans_clustering_results_metrics.json"
+    params:
+        random_seed=RANDOM_SEED
+    script:
+        "scripts/kmeans.py"
+
+rule kmeans_with_outliers_removal:
+    input:
+        "output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv"
+    output:
+        "output/clustering/kmeans/kmeans_clustering_results_with_outliers_removal.csv",
+        "output/clustering/kmeans/kmeans_clustering_plot_with_outliers_removal.png",
+        "output/clustering/kmeans/kmeans_clustering_results_metrics_with_outliers_removal.json",
+    params:
+        random_seed=RANDOM_SEED
+    script:
+        "scripts/kmeans.py"
 
 #Feature Selection Rule
 rule lasso_feature_selection:
@@ -105,15 +141,5 @@ rule grid_search_cv:
     script:
         "scripts/gridsearchcv.py"
 
-# Clustering Rule
-rule kmeans_clustering:
-    input:
-        "data/processed/healthcare-dataset-stroke-data-processed.csv"
-    output:
-        directory("clustering_results/kmeans"),
-        cluster_labels = "clustering_results/kmeans/kmeans_clusters.csv",
-        pca_plot = "clustering_results/kmeans/pca_kmeans.png",
-        tsne_plot = "clustering_results/kmeans/tsne_kmeans.png"
-    script:
-        "scripts/kmeans_clustering.py"
+
 

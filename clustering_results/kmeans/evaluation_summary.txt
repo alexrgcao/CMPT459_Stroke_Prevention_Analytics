@@ -1,0 +1,10 @@
+Best k based on Silhouette Score: 3
+k=2: Silhouette Score = 0.2856
+k=3: Silhouette Score = 0.2898
+k=4: Silhouette Score = 0.2334
+k=5: Silhouette Score = 0.2276
+k=6: Silhouette Score = 0.1929
+k=7: Silhouette Score = 0.1950
+k=8: Silhouette Score = 0.1828
+k=9: Silhouette Score = 0.1765
+k=10: Silhouette Score = 0.1817

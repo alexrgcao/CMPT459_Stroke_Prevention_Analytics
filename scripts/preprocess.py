@@ -4,6 +4,8 @@ from sklearn.preprocessing import RobustScaler
 from sklearn.cluster import KMeans
 import os
 
+RANDOM_SEED = 42
+
 def load_data(input_file):
     return pd.read_csv(input_file)
 
@@ -29,26 +31,17 @@ def clean_feature(data):
 
     return data
 
-def scale_feature_bmi(data):
-    data["bmi"] = pd.to_numeric(data["bmi"], errors="coerce")
-    data["bmi"].fillna(data["bmi"].mean(), inplace=True)
-    Q1 = data["bmi"].quantile(0.25)
-    Q3 = data["bmi"].quantile(0.75)
-    IQR = Q3 - Q1
-    data = data[(data["bmi"] >= Q1 - 1.5 * IQR) & (data["bmi"] <= Q3 + 1.5 * IQR)]
-    scaler = RobustScaler()
-    data["bmi"] = scaler.fit_transform(data[["bmi"]])
-
-    return data
-
 def bin_glucose_levels(data, n_clusters=3):
-    kmeans = KMeans(n_clusters=n_clusters, random_state=42)
+    kmeans = KMeans(n_clusters=n_clusters, random_state=RANDOM_SEED)
     data["glucose_level_cluster"] = kmeans.fit_predict(data[["avg_glucose_level"]])
     return data
 
-def scale_numerical_features(data, cols):
+def scale_all_numerical_features(data):
+    numerical_cols = data.select_dtypes(include=['float64', 'int64']).columns
+
     scaler = RobustScaler()
-    data[cols] = scaler.fit_transform(data[cols])
+    data[numerical_cols] = scaler.fit_transform(data[numerical_cols])
+    
     return data
 
 def one_hot_encode(data):
@@ -62,9 +55,8 @@ def one_hot_encode(data):
 def main(input_file, output_file):
     data = load_data(input_file)
     data = clean_feature(data)
-    data = scale_feature_bmi(data)
     data = bin_glucose_levels(data)
-    data = scale_numerical_features(data, ["age", "avg_glucose_level"])
+    data = scale_all_numerical_features(data)
     data = one_hot_encode(data)
     data = data.apply(lambda col: col.astype(int) if col.dtypes == 'bool' else col)
     if not os.path.exists(os.path.dirname(output_file)):
@@ -74,4 +66,5 @@ def main(input_file, output_file):
 if __name__ == "__main__":
     input_file = snakemake.input[0]
     output_file = snakemake.output[0]
+    RANDOM_SEED = snakemake.params.random_seed
     main(input_file, output_file)

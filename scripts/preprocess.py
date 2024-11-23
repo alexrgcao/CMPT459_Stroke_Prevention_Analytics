@@ -51,8 +51,7 @@ def one_hot_encode(data):
 
 def main(input_file, output_file):
     data = load_data(input_file)
-    print(data['Residence_type'].unique())
-    print(data['ever_married'].unique())
+    
     data = clean_feature(data)
     data = bin_glucose_levels(data)
     data = scale_all_numerical_features(data)

@@ -36,8 +36,10 @@ def bin_glucose_levels(data, n_clusters=3):
     data["glucose_level_cluster"] = kmeans.fit_predict(data[["avg_glucose_level"]])
     return data
 
-def scale_all_numerical_features(data):
+def scale_all_numerical_features(data, exclude_columns=['Residence_type', 'ever_married', 'stroke']):
     numerical_cols = data.select_dtypes(include=['float64', 'int64']).columns
+
+    numerical_cols = [col for col in numerical_cols if col not in exclude_columns]
 
     scaler = RobustScaler()
     data[numerical_cols] = scaler.fit_transform(data[numerical_cols])
@@ -54,6 +56,8 @@ def one_hot_encode(data):
 
 def main(input_file, output_file):
     data = load_data(input_file)
+    print(data['Residence_type'].unique())
+    print(data['ever_married'].unique())
     data = clean_feature(data)
     data = bin_glucose_levels(data)
     data = scale_all_numerical_features(data)

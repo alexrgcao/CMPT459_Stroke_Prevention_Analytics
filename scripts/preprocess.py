@@ -12,12 +12,7 @@ def load_data(input_file):
 def clean_feature(data):
     data.drop(columns=['id'], inplace=True)
 
-    data = data.loc[data["gender"] != "Other"].copy()
-    data.loc[:, "gender"] = data["gender"].map({"Female": 0, "Male": 1})
-
-    data['ever_married'] = data['ever_married'].map({'Yes': 1, 'No': 0})
-
-    data['Residence_type'] = data['Residence_type'].map({'Urban': 1, 'Rural': 0})
+    data = data.drop(columns=['ever_married', 'Residence_type', 'gender'], errors='ignore')
 
     data["bmi"] = pd.to_numeric(data["bmi"], errors="coerce")
     data["bmi"].fillna(data["bmi"].mean(), inplace=True)

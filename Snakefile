@@ -91,6 +91,7 @@ rule kmeans:
     script:
         "scripts/kmeans.py"
 
+# Clustering KMeans Rule
 rule kmeans_with_outliers_removal:
     input:
         "output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv"
@@ -115,6 +116,18 @@ rule lasso_feature_selection:
     script:
         "scripts/lasso.py"
 
+# RFE Feature Selection Rule
+rule recursive_feature_elimination:
+    input:
+        "data/processed/healthcare-dataset-stroke-data-oversampled.csv"
+    output:
+        "output/feature_selection/rfe_reduced_features.csv"
+    params:
+        target=TARGET,
+        random_seed=RANDOM_SEED
+    script:
+        "scripts/recursive_feature_elimination.py"
+
 # Random Forest Classifier Rule
 rule random_forest_classifier:
     input:
@@ -129,6 +142,21 @@ rule random_forest_classifier:
     script:
         "scripts/random_forest.py"
 
+# SVM Classifier Rule
+rule svm_classifier:
+    input:
+        "data/processed/healthcare-dataset-stroke-data-oversampled.csv"
+    output:
+        "output/classification/svm/svm_results_scalar_metrics.csv",
+        "output/classification/svm/svm_confusion_matrix.png",
+        "output/classification/svm/svm_roc_curve.png"
+    params:
+        target=TARGET,
+        random_seed=RANDOM_SEED
+    script:
+        "scripts/support_vector_machine.py"
+
+
 # GridSearchCV Rule
 rule grid_search_cv:
     input:
@@ -140,6 +168,20 @@ rule grid_search_cv:
         random_seed=RANDOM_SEED
     script:
         "scripts/gridsearchcv.py"
+
+# RandomSearch Hyperparameter Tuning Rule:
+rule random_search:
+    input:
+        "data/processed/healthcare-dataset-stroke-data-oversampled.csv"
+    output:
+        "output/hyperparameter_tuning/random_search/random_search_results.csv",
+        "output/hyperparameter_tuning/random_search/random_search_confusion_matrix.png",
+        "output/hyperparameter_tuning/random_search/random_search_roc_curve.png"
+    params:
+        target=TARGET,
+        random_seed=RANDOM_SEED
+    script:
+        "scripts/random_search.py"
 
 
 

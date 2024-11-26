@@ -105,7 +105,7 @@ rule random_forest_classifier:
 # GridSearchCV Rule
 rule grid_search_cv:
     input:
-        "output/feature_selection/lasso_reduced_features.csv"
+        "output/feature_selection/mutual_information_reduced_features.csv"
     output:
         "output/hyperparameter_tuning/grid_search_cv_results.json",
         "output/hyperparameter_tuning/grid_search_cv_rf_plot.png",

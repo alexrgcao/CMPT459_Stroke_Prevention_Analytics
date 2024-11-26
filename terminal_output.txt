@@ -1,0 +1,374 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 2
+Rules claiming more threads will be scaled down.
+Job stats:
+job                                     count
+------------------------------------  -------
+all                                         1
+dbscan                                      1
+dbscan_with_outliers_removal                1
+eda                                         1
+grid_search_cv                              1
+isolation_forest                            1
+kmeans                                      1
+kmeans_with_outliers_removal                1
+local_outlier_factor                        1
+mutual_information_feature_selection        1
+preprocess                                  1
+random_forest_classifier                    1
+random_search                               1
+recursive_feature_elimination               1
+smote                                       1
+svm_classifier                              1
+total                                      16
+
+Select jobs to execute...
+
+[Tue Nov 26 08:50:38 2024]
+rule dbscan_with_outliers_removal:
+    input: output/outlier_detection/isolation_forest_inliers_detection_results.csv
+    output: output/clustering/dbscan/dbscan_clustering_results_with_outliers_removal.csv, output/clustering/dbscan/dbscan_clustering_plot_with_outliers_removal.png, output/clustering/dbscan/dbscan_clustering_results_metrics_with_outliers_removal.json, output/clustering/dbscan/dbscan_k_distance_plot_with_outliers_removal.png, output/clustering/dbscan/dbscan_metrics_heatmap_with_outliers_removal.png
+    jobid: 7
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+[Tue Nov 26 08:50:38 2024]
+rule preprocess:
+    input: data/raw/healthcare-dataset-stroke-data.csv
+    output: data/processed/healthcare-dataset-stroke-data-processed.csv
+    jobid: 1
+    reason: Forced execution
+    resources: tmpdir=/tmp
+
+/usr/local/lib/python3.10/dist-packages/sklearn/cluster/_kmeans.py:1416: FutureWarning: The default value of `n_init` will change from 10 to 'auto' in 1.4. Set the value of `n_init` explicitly to suppress the warning
+  super()._check_params_vs_input(X, default_n_init=10)
+[Tue Nov 26 08:50:46 2024]
+Finished job 1.
+1 of 16 steps (6%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:50:46 2024]
+rule eda:
+    input: data/processed/healthcare-dataset-stroke-data-processed.csv
+    output: eda_results, eda_results/.done
+    jobid: 2
+    reason: Missing output files: eda_results/.done; Input files updated by another job: data/processed/healthcare-dataset-stroke-data-processed.csv
+    resources: tmpdir=/tmp
+
+[Tue Nov 26 08:51:04 2024]
+Finished job 2.
+2 of 16 steps (12%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:51:04 2024]
+rule smote:
+    input: data/processed/healthcare-dataset-stroke-data-processed.csv
+    output: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    jobid: 3
+    reason: Missing output files: data/processed/healthcare-dataset-stroke-data-oversampled.csv; Input files updated by another job: data/processed/healthcare-dataset-stroke-data-processed.csv
+    resources: tmpdir=/tmp
+
+stroke
+1    4861
+0    4861
+Name: count, dtype: int64
+[Tue Nov 26 08:51:08 2024]
+Finished job 3.
+3 of 16 steps (19%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:51:08 2024]
+rule local_outlier_factor:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/outlier_detection/local_outlier_factor/lof_outlier_detection_results.csv, output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv, output/outlier_detection/local_outlier_factor/lof_outlier_detection_plot.png, output/outlier_detection/local_outlier_factor/lof_tuning_results.json
+    jobid: 5
+    reason: Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+    n_neighbors  contamination  n_outliers
+0            10           0.05         487
+1            10           0.10         973
+2            10           0.15        1459
+3            10           0.20        1945
+4            20           0.05         487
+5            20           0.10         973
+6            20           0.15        1459
+7            20           0.20        1945
+8            30           0.05         487
+9            30           0.10         973
+10           30           0.15        1459
+11           30           0.20        1945
+12           40           0.05         487
+13           40           0.10         973
+14           40           0.15        1459
+15           40           0.20        1945
+Best Hyperparameters: n_neighbors=10, contamination=0.2
+[Tue Nov 26 08:51:30 2024]
+Finished job 5.
+4 of 16 steps (25%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:51:30 2024]
+rule recursive_feature_elimination:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/feature_selection/rfe_reduced_features.csv
+    jobid: 11
+    reason: Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Selected Features by RFE: ['age', 'hypertension', 'heart_disease', 'avg_glucose_level', 'bmi', 'glucose_level_cluster', 'work_type_Private', 'work_type_Self-employed', 'work_type_children', 'smoking_status_never smoked']
+Reduced dataset saved to output/feature_selection/rfe_reduced_features.csv
+[Tue Nov 26 08:51:38 2024]
+Finished job 11.
+5 of 16 steps (31%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:51:38 2024]
+rule svm_classifier:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/classification/svm/svm_results_scalar_metrics.csv, output/classification/svm/svm_confusion_matrix.png, output/classification/svm/svm_roc_curve.png
+    jobid: 13
+    reason: Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Best min_samples: 14 (Davies-Bouldin Index: 1.5940)
+Adjusted Rand Index (ARI): 0.05477618625883732
+Silhouette: 0.47799117525123663, Calinski-Harabasz Index: 4662.615868667151, Davies-Bouldin Index: 1.593974261569952
+[Tue Nov 26 08:52:16 2024]
+Finished job 7.
+6 of 16 steps (38%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:52:16 2024]
+rule random_search:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/hyperparameter_tuning/random_search/random_search_results.csv, output/hyperparameter_tuning/random_search/random_search_confusion_matrix.png, output/hyperparameter_tuning/random_search/random_search_roc_curve.png
+    jobid: 15
+    reason: Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Cross-Validation Scores: [0.83290488 0.82583548 0.82508039 0.8192926  0.82508039]
+Mean CV Accuracy: 0.8256
+Standard Deviation: 0.0043
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.89      0.75      0.81       973
+           1       0.78      0.91      0.84       972
+
+    accuracy                           0.83      1945
+   macro avg       0.84      0.83      0.83      1945
+weighted avg       0.84      0.83      0.83      1945
+
+Metrics saved to output/classification/svm/svm_results_scalar_metrics.csv
+Confusion matrix saved to output/classification/svm/svm_confusion_matrix.png
+ROC curve saved to output/classification/svm/svm_roc_curve.png
+[Tue Nov 26 08:53:34 2024]
+Finished job 13.
+7 of 16 steps (44%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:53:34 2024]
+rule isolation_forest:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_results.csv, output/outlier_detection/isolation_forest/isolation_forest_inliers_detection_results.csv, output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_plot.png
+    jobid: 4
+    reason: Missing output files: output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_results.csv, output/outlier_detection/isolation_forest/isolation_forest_inliers_detection_results.csv, output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_plot.png; Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Flattened Results DataFrame:
+   avg_inlier_score  proportion_outliers  bootstrap  ...  max_features  max_samples n_estimators
+0          0.169442             0.001029       True  ...           1.0         auto           50
+1          0.169424             0.001029       True  ...           1.0         auto           55
+2          0.191785             0.001029       True  ...           1.0          0.6           50
+3          0.194941             0.001029       True  ...           1.0          0.6           55
+4          0.198988             0.001029       True  ...           1.0          0.7           50
+
+[5 rows x 7 columns]
+Best Parameters: {'n_estimators': 50, 'max_samples': 0.7, 'contamination': 0.001, 'max_features': 1.0, 'bootstrap': True}
+[Tue Nov 26 08:56:55 2024]
+Finished job 4.
+8 of 16 steps (50%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:56:55 2024]
+rule dbscan:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/clustering/dbscan/dbscan_clustering_results.csv, output/clustering/dbscan/dbscan_clustering_plot.png, output/clustering/dbscan/dbscan_clustering_results_metrics.json, output/clustering/dbscan/dbscan_k_distance_plot.png, output/clustering/dbscan/dbscan_metrics_heatmap.png
+    jobid: 6
+    reason: Missing output files: output/clustering/dbscan/dbscan_clustering_results.csv, output/clustering/dbscan/dbscan_k_distance_plot.png, output/clustering/dbscan/dbscan_clustering_results_metrics.json, output/clustering/dbscan/dbscan_metrics_heatmap.png, output/clustering/dbscan/dbscan_clustering_plot.png; Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Best min_samples: 5 (Davies-Bouldin Index: 1.2271)
+Adjusted Rand Index (ARI): 0.054215326584846284
+Silhouette: 0.48322307225379274, Calinski-Harabasz Index: 4664.404943590275, Davies-Bouldin Index: 1.227111441110271
+[Tue Nov 26 08:58:58 2024]
+Finished job 6.
+9 of 16 steps (56%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:58:58 2024]
+rule kmeans:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/clustering/kmeans/kmeans_clustering_results.csv, output/clustering/kmeans/kmeans_clustering_plot.png, output/clustering/kmeans/kmeans_clustering_results_metrics.json
+    jobid: 8
+    reason: Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Explained Variance Ratio with 3 components: 0.7329
+k=2: Silhouette=0.6316, CH Index=18565.4131, DB Index=0.5312
+k=3: Silhouette=0.4109, CH Index=14039.6907, DB Index=0.9051
+k=4: Silhouette=0.3895, CH Index=12741.0998, DB Index=0.9569
+k=5: Silhouette=0.3790, CH Index=11234.7892, DB Index=0.9709
+k=6: Silhouette=0.3041, CH Index=10705.4600, DB Index=1.1374
+k=7: Silhouette=0.3100, CH Index=10039.3644, DB Index=1.1087
+k=8: Silhouette=0.2871, CH Index=9477.5063, DB Index=1.1010
+k=9: Silhouette=0.2867, CH Index=9194.1144, DB Index=1.0874
+k=10: Silhouette=0.2813, CH Index=8869.4058, DB Index=1.0907
+Best k determined by Silhouette Score: 2
+[Tue Nov 26 08:59:49 2024]
+Finished job 8.
+10 of 16 steps (62%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:59:49 2024]
+rule mutual_information_feature_selection:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/feature_selection/mutual_information_reduced_features.csv
+    jobid: 10
+    reason: Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Mutual Information Scores:
+age: 0.5426
+hypertension: 0.0479
+heart_disease: 0.0497
+avg_glucose_level: 0.0696
+bmi: 0.4543
+glucose_level_cluster: 0.0503
+work_type_Private: 0.0018
+work_type_Self-employed: 0.0125
+work_type_children: 0.0501
+smoking_status_never smoked: 0.0042
+smoking_status_smokes: 0.0015
+Selected Features by MI: ['age', 'hypertension', 'heart_disease', 'avg_glucose_level', 'bmi', 'glucose_level_cluster', 'work_type_Self-employed', 'work_type_children', 'smoking_status_never smoked', 'smoking_status_smokes']
+Reduced dataset saved to output/feature_selection/mutual_information_reduced_features.csv
+[Tue Nov 26 08:59:57 2024]
+Finished job 10.
+11 of 16 steps (69%) done
+Select jobs to execute...
+
+[Tue Nov 26 08:59:57 2024]
+rule grid_search_cv:
+    input: output/feature_selection/mutual_information_reduced_features.csv
+    output: output/hyperparameter_tuning/grid_search_cv/grid_search_cv_results.json, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_rf_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_mi_results.json, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_halving_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_confusion_matrix.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_roc_curve.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_learning_curve.png
+    jobid: 14
+    reason: Missing output files: output/hyperparameter_tuning/grid_search_cv/grid_search_cv_rf_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_roc_curve.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_halving_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_results.json, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_mi_results.json, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_confusion_matrix.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_learning_curve.png; Input files updated by another job: output/feature_selection/mutual_information_reduced_features.csv
+    resources: tmpdir=/tmp
+
+Best Random Forest Parameters: {'bootstrap': True, 'max_depth': None, 'max_features': 'log2', 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 300}
+Best CV Accuracy: 0.9091
+Best Random Forest Parameters: {'bootstrap': True, 'max_depth': 15, 'max_features': 'log2', 'min_samples_leaf': 1, 'min_samples_split': 5, 'n_estimators': 100}
+Best CV Accuracy: 0.9064
+Best Random Forest Parameters: {'bootstrap': True, 'max_depth': 20, 'max_features': 'log2', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 300}
+Best CV Accuracy: 0.9193
+Figure(800x600)
+Figure(800x600)
+Figure(1000x600)
+All metrics saved to output/hyperparameter_tuning/grid_search_cv/grid_search_cv_results.json
+[Tue Nov 26 09:44:05 2024]
+Finished job 14.
+12 of 16 steps (75%) done
+Select jobs to execute...
+
+[Tue Nov 26 09:44:05 2024]
+rule random_forest_classifier:
+    input: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    output: output/classification/random_forest/random_forest_results_cv_scores.csv, output/classification/random_forest/random_forest_results_scalar_metrics.csv, output/classification/random_forest/random_forest_plot.png, output/classification/random_forest/random_forest_cm.png, output/classification/random_forest/random_forest_roc_plot.png, output/classification/random_forest/random_forest_lc_plot.png
+    jobid: 12
+    reason: Missing output files: output/classification/random_forest/random_forest_results_scalar_metrics.csv, output/classification/random_forest/random_forest_results_cv_scores.csv, output/classification/random_forest/random_forest_roc_plot.png, output/classification/random_forest/random_forest_cm.png, output/classification/random_forest/random_forest_lc_plot.png, output/classification/random_forest/random_forest_plot.png; Input files updated by another job: data/processed/healthcare-dataset-stroke-data-oversampled.csv
+    resources: tmpdir=/tmp
+
+Cross-Validation Scores: [0.89203085 0.88753213 0.90032154 0.89389068 0.89003215]
+Mean CV Accuracy: 0.89
+Standard Deviation: 0.00
+OOB Score: 0.90
+Training Accuracy: 0.94
+Testing Accuracy: 0.90
+Test Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.92      0.88      0.90       973
+           1       0.89      0.93      0.91       972
+
+    accuracy                           0.90      1945
+   macro avg       0.91      0.90      0.90      1945
+weighted avg       0.91      0.90      0.90      1945
+
+Figure(1200x600)
+Figure(800x600)
+Figure(800x600)
+Figure(1000x600)
+All plots and metrics have been saved.
+[Tue Nov 26 09:46:04 2024]
+Finished job 12.
+13 of 16 steps (81%) done
+Select jobs to execute...
+
+[Tue Nov 26 09:46:04 2024]
+rule kmeans_with_outliers_removal:
+    input: output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv
+    output: output/clustering/kmeans/kmeans_clustering_results_with_outliers_removal.csv, output/clustering/kmeans/kmeans_clustering_plot_with_outliers_removal.png, output/clustering/kmeans/kmeans_clustering_results_metrics_with_outliers_removal.json
+    jobid: 9
+    reason: Input files updated by another job: output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv
+    resources: tmpdir=/tmp
+
+Explained Variance Ratio with 3 components: 0.7290
+k=2: Silhouette=0.6371, CH Index=14278.8095, DB Index=0.5215
+k=3: Silhouette=0.4215, CH Index=11576.4319, DB Index=0.8756
+k=4: Silhouette=0.3948, CH Index=10754.0562, DB Index=0.9120
+k=5: Silhouette=0.3325, CH Index=9420.6811, DB Index=1.0968
+k=6: Silhouette=0.3176, CH Index=8897.8985, DB Index=1.1139
+k=7: Silhouette=0.2996, CH Index=8419.9930, DB Index=1.1450
+k=8: Silhouette=0.3113, CH Index=8164.4260, DB Index=1.0621
+k=9: Silhouette=0.3070, CH Index=7857.2915, DB Index=1.0576
+k=10: Silhouette=0.2938, CH Index=7589.3373, DB Index=1.0863
+Best k determined by Silhouette Score: 2
+[Tue Nov 26 09:46:47 2024]
+Finished job 9.
+14 of 16 steps (88%) done
+Best Parameters: {'C': 7.896910002727692, 'degree': 2, 'gamma': 'scale', 'kernel': 'rbf', 'probability': True}
+Best Cross-Validation Accuracy: 0.8602
+Tuned SVM Performance:
+              precision    recall  f1-score   support
+
+           0       0.92      0.78      0.85       973
+           1       0.81      0.94      0.87       972
+
+    accuracy                           0.86      1945
+   macro avg       0.87      0.86      0.86      1945
+weighted avg       0.87      0.86      0.86      1945
+
+Tuned AUC-ROC: 0.9237
+Metrics saved to output/hyperparameter_tuning/random_search/random_search_results.csv
+Figure(600x600)
+Confusion matrix saved to output/hyperparameter_tuning/random_search/random_search_confusion_matrix.png
+Figure(640x480)
+ROC curve saved to output/hyperparameter_tuning/random_search/random_search_roc_curve.png
+[Tue Nov 26 09:51:27 2024]
+Finished job 15.
+15 of 16 steps (94%) done
+Select jobs to execute...
+
+[Tue Nov 26 09:51:27 2024]
+localrule all:
+    input: data/processed/healthcare-dataset-stroke-data-processed.csv, eda_results/.done, data/processed/healthcare-dataset-stroke-data-oversampled.csv, output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_results.csv, output/outlier_detection/isolation_forest/isolation_forest_inliers_detection_results.csv, output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_plot.png, output/outlier_detection/local_outlier_factor/lof_outlier_detection_results.csv, output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv, output/outlier_detection/local_outlier_factor/lof_outlier_detection_plot.png, output/outlier_detection/local_outlier_factor/lof_tuning_results.json, output/clustering/dbscan/dbscan_clustering_results.csv, output/clustering/dbscan/dbscan_clustering_plot.png, output/clustering/dbscan/dbscan_clustering_results_metrics.json, output/clustering/dbscan/dbscan_k_distance_plot.png, output/clustering/dbscan/dbscan_metrics_heatmap.png, output/clustering/dbscan/dbscan_clustering_results_with_outliers_removal.csv, output/clustering/dbscan/dbscan_clustering_plot_with_outliers_removal.png, output/clustering/dbscan/dbscan_clustering_results_metrics_with_outliers_removal.json, output/clustering/dbscan/dbscan_k_distance_plot_with_outliers_removal.png, output/clustering/dbscan/dbscan_metrics_heatmap_with_outliers_removal.png, output/clustering/kmeans/kmeans_clustering_results.csv, output/clustering/kmeans/kmeans_clustering_plot.png, output/clustering/kmeans/kmeans_clustering_results_metrics.json, output/clustering/kmeans/kmeans_clustering_results_with_outliers_removal.csv, output/clustering/kmeans/kmeans_clustering_plot_with_outliers_removal.png, output/clustering/kmeans/kmeans_clustering_results_metrics_with_outliers_removal.json, output/feature_selection/mutual_information_reduced_features.csv, output/feature_selection/rfe_reduced_features.csv, output/classification/random_forest/random_forest_results_cv_scores.csv, output/classification/random_forest/random_forest_results_scalar_metrics.csv, output/classification/random_forest/random_forest_plot.png, output/classification/random_forest/random_forest_cm.png, output/classification/random_forest/random_forest_roc_plot.png, output/classification/random_forest/random_forest_lc_plot.png, output/classification/svm/svm_results_scalar_metrics.csv, output/classification/svm/svm_confusion_matrix.png, output/classification/svm/svm_roc_curve.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_results.json, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_rf_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_mi_results.json, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_halving_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_confusion_matrix.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_roc_curve.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_learning_curve.png, output/hyperparameter_tuning/random_search/random_search_results.csv, output/hyperparameter_tuning/random_search/random_search_confusion_matrix.png, output/hyperparameter_tuning/random_search/random_search_roc_curve.png
+    jobid: 0
+    reason: Input files updated by another job: output/clustering/dbscan/dbscan_clustering_plot_with_outliers_removal.png, output/classification/svm/svm_roc_curve.png, output/hyperparameter_tuning/random_search/random_search_results.csv, output/classification/random_forest/random_forest_results_scalar_metrics.csv, data/processed/healthcare-dataset-stroke-data-oversampled.csv, output/clustering/dbscan/dbscan_clustering_results.csv, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_halving_plot.png, output/clustering/kmeans/kmeans_clustering_results.csv, output/feature_selection/rfe_reduced_features.csv, eda_results/.done, output/classification/random_forest/random_forest_cm.png, output/classification/random_forest/random_forest_lc_plot.png, output/hyperparameter_tuning/random_search/random_search_roc_curve.png, output/outlier_detection/local_outlier_factor/lof_outlier_detection_plot.png, output/clustering/kmeans/kmeans_clustering_results_metrics.json, output/clustering/kmeans/kmeans_clustering_results_metrics_with_outliers_removal.json, output/clustering/dbscan/dbscan_clustering_results_metrics_with_outliers_removal.json, output/clustering/dbscan/dbscan_k_distance_plot_with_outliers_removal.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_roc_curve.png, output/clustering/kmeans/kmeans_clustering_results_with_outliers_removal.csv, output/outlier_detection/local_outlier_factor/lof_outlier_detection_results.csv, output/hyperparameter_tuning/random_search/random_search_confusion_matrix.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_results.json, output/clustering/dbscan/dbscan_clustering_results_metrics.json, output/clustering/kmeans/kmeans_clustering_plot_with_outliers_removal.png, output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_results.csv, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_confusion_matrix.png, output/clustering/dbscan/dbscan_clustering_results_with_outliers_removal.csv, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_learning_curve.png, output/classification/svm/svm_confusion_matrix.png, output/outlier_detection/local_outlier_factor/lof_tuning_results.json, output/classification/random_forest/random_forest_roc_plot.png, output/outlier_detection/local_outlier_factor/lof_inliers_detection_results.csv, output/feature_selection/mutual_information_reduced_features.csv, output/clustering/dbscan/dbscan_clustering_plot.png, output/outlier_detection/isolation_forest/isolation_forest_inliers_detection_results.csv, data/processed/healthcare-dataset-stroke-data-processed.csv, output/clustering/kmeans/kmeans_clustering_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_rf_plot.png, output/classification/svm/svm_results_scalar_metrics.csv, output/classification/random_forest/random_forest_results_cv_scores.csv, output/clustering/dbscan/dbscan_k_distance_plot.png, output/clustering/dbscan/dbscan_metrics_heatmap_with_outliers_removal.png, output/clustering/dbscan/dbscan_metrics_heatmap.png, output/outlier_detection/isolation_forest/isolation_forest_outlier_detection_plot.png, output/hyperparameter_tuning/grid_search_cv/grid_search_cv_mi_results.json, output/classification/random_forest/random_forest_plot.png
+    resources: tmpdir=/tmp
+
+[Tue Nov 26 09:51:27 2024]
+Finished job 0.
+16 of 16 steps (100%) done
+Complete log: .snakemake/log/2024-11-26T085037.025522.snakemake.log

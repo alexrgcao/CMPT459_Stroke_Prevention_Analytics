@@ -66,6 +66,9 @@ def main(input_file, output_dir):
     plot_correlation_heatmap(data, output_dir)
     plot_boxplot(data, output_dir)
 
+    with open(os.path.join(output_dir, ".done"), "w") as f:
+      f.write("EDA completed successfully.")
+
 
 if __name__ == "__main__":
     input_file = snakemake.input[0]

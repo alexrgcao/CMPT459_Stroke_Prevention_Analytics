@@ -1,0 +1,47 @@
+{
+    "2": {
+        "Silhouette Score": 0.6316423278540447,
+        "Calinski-Harabasz Index": 18565.413112150454,
+        "Davies-Bouldin Index": 0.531168755102948
+    },
+    "3": {
+        "Silhouette Score": 0.4109286450662332,
+        "Calinski-Harabasz Index": 14039.690736125005,
+        "Davies-Bouldin Index": 0.9051387258130174
+    },
+    "4": {
+        "Silhouette Score": 0.3894843864648843,
+        "Calinski-Harabasz Index": 12741.099815405703,
+        "Davies-Bouldin Index": 0.956924299592985
+    },
+    "5": {
+        "Silhouette Score": 0.37895784622853274,
+        "Calinski-Harabasz Index": 11234.789200388208,
+        "Davies-Bouldin Index": 0.9708871814315023
+    },
+    "6": {
+        "Silhouette Score": 0.3041280077901826,
+        "Calinski-Harabasz Index": 10705.46003011015,
+        "Davies-Bouldin Index": 1.1373947401798306
+    },
+    "7": {
+        "Silhouette Score": 0.3099657950819775,
+        "Calinski-Harabasz Index": 10039.364402679841,
+        "Davies-Bouldin Index": 1.1087493673819269
+    },
+    "8": {
+        "Silhouette Score": 0.28708963601155557,
+        "Calinski-Harabasz Index": 9477.506313888049,
+        "Davies-Bouldin Index": 1.1009792435823385
+    },
+    "9": {
+        "Silhouette Score": 0.28667309741775354,
+        "Calinski-Harabasz Index": 9194.114439485265,
+        "Davies-Bouldin Index": 1.0874048925744604
+    },
+    "10": {
+        "Silhouette Score": 0.28134548219246586,
+        "Calinski-Harabasz Index": 8869.405753467803,
+        "Davies-Bouldin Index": 1.0907156535808453
+    }
+}

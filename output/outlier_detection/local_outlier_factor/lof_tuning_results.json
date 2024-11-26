@@ -1,0 +1,82 @@
+[
+    {
+        "n_neighbors": 10,
+        "contamination": 0.05,
+        "n_outliers": 487
+    },
+    {
+        "n_neighbors": 10,
+        "contamination": 0.1,
+        "n_outliers": 973
+    },
+    {
+        "n_neighbors": 10,
+        "contamination": 0.15,
+        "n_outliers": 1459
+    },
+    {
+        "n_neighbors": 10,
+        "contamination": 0.2,
+        "n_outliers": 1945
+    },
+    {
+        "n_neighbors": 20,
+        "contamination": 0.05,
+        "n_outliers": 487
+    },
+    {
+        "n_neighbors": 20,
+        "contamination": 0.1,
+        "n_outliers": 973
+    },
+    {
+        "n_neighbors": 20,
+        "contamination": 0.15,
+        "n_outliers": 1459
+    },
+    {
+        "n_neighbors": 20,
+        "contamination": 0.2,
+        "n_outliers": 1945
+    },
+    {
+        "n_neighbors": 30,
+        "contamination": 0.05,
+        "n_outliers": 487
+    },
+    {
+        "n_neighbors": 30,
+        "contamination": 0.1,
+        "n_outliers": 973
+    },
+    {
+        "n_neighbors": 30,
+        "contamination": 0.15,
+        "n_outliers": 1459
+    },
+    {
+        "n_neighbors": 30,
+        "contamination": 0.2,
+        "n_outliers": 1945
+    },
+    {
+        "n_neighbors": 40,
+        "contamination": 0.05,
+        "n_outliers": 487
+    },
+    {
+        "n_neighbors": 40,
+        "contamination": 0.1,
+        "n_outliers": 973
+    },
+    {
+        "n_neighbors": 40,
+        "contamination": 0.15,
+        "n_outliers": 1459
+    },
+    {
+        "n_neighbors": 40,
+        "contamination": 0.2,
+        "n_outliers": 1945
+    }
+]

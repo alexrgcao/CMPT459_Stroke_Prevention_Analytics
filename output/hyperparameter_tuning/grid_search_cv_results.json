@@ -1,0 +1,246 @@
+{
+    "MI-Based Feature Selection": {
+        "Feature Names": [
+            "gender",
+            "age",
+            "hypertension",
+            "heart_disease",
+            "ever_married",
+            "Residence_type",
+            "avg_glucose_level",
+            "bmi",
+            "glucose_level_cluster",
+            "work_type_Private",
+            "work_type_Self-employed",
+            "work_type_children",
+            "smoking_status_never smoked",
+            "smoking_status_smokes"
+        ],
+        "MI Scores": [
+            0.00494343808997022,
+            0.5460020362901994,
+            0.0778767959315696,
+            0.045714928638284524,
+            0.09838459482395745,
+            0.06250233884955914,
+            0.061644714376673626,
+            0.4535318623331752,
+            0.035515853676233666,
+            0.0023906360484102773,
+            0.0,
+            0.0541483134905727,
+            0.009007338485857552,
+            0.004003698486325424
+        ],
+        "Results for each k": {
+            "8": {
+                "Best Parameters": {
+                    "bootstrap": true,
+                    "ccp_alpha": 0.0,
+                    "class_weight": null,
+                    "criterion": "gini",
+                    "max_depth": 20,
+                    "max_features": "log2",
+                    "max_leaf_nodes": null,
+                    "max_samples": null,
+                    "min_impurity_decrease": 0.0,
+                    "min_samples_leaf": 2,
+                    "min_samples_split": 10,
+                    "min_weight_fraction_leaf": 0.0,
+                    "n_estimators": 100,
+                    "n_jobs": null,
+                    "oob_score": true,
+                    "random_state": 42,
+                    "verbose": 0,
+                    "warm_start": false
+                },
+                "Best CV Accuracy": 0.9075027144408251,
+                "Train Accuracy": 0.972608024691358,
+                "Test Accuracy": 0.9233539094650206,
+                "Classification Report": {
+                    "0.0": {
+                        "precision": 0.9391675560298826,
+                        "recall": 0.9053497942386831,
+                        "f1-score": 0.9219486642221059,
+                        "support": 972.0
+                    },
+                    "1.0": {
+                        "precision": 0.9086395233366436,
+                        "recall": 0.941358024691358,
+                        "f1-score": 0.9247094492167761,
+                        "support": 972.0
+                    },
+                    "accuracy": 0.9233539094650206,
+                    "macro avg": {
+                        "precision": 0.9239035396832631,
+                        "recall": 0.9233539094650205,
+                        "f1-score": 0.923329056719441,
+                        "support": 1944.0
+                    },
+                    "weighted avg": {
+                        "precision": 0.9239035396832631,
+                        "recall": 0.9233539094650206,
+                        "f1-score": 0.923329056719441,
+                        "support": 1944.0
+                    }
+                }
+            },
+            "9": {
+                "Best Parameters": {
+                    "bootstrap": true,
+                    "ccp_alpha": 0.0,
+                    "class_weight": null,
+                    "criterion": "gini",
+                    "max_depth": 15,
+                    "max_features": "sqrt",
+                    "max_leaf_nodes": null,
+                    "max_samples": null,
+                    "min_impurity_decrease": 0.0,
+                    "min_samples_leaf": 2,
+                    "min_samples_split": 5,
+                    "min_weight_fraction_leaf": 0.0,
+                    "n_estimators": 300,
+                    "n_jobs": null,
+                    "oob_score": true,
+                    "random_state": 42,
+                    "verbose": 0,
+                    "warm_start": false
+                },
+                "Best CV Accuracy": 0.9045066503800218,
+                "Train Accuracy": 0.9636059670781894,
+                "Test Accuracy": 0.9192386831275721,
+                "Classification Report": {
+                    "0.0": {
+                        "precision": 0.9482948294829483,
+                        "recall": 0.8868312757201646,
+                        "f1-score": 0.9165337586390218,
+                        "support": 972.0
+                    },
+                    "1.0": {
+                        "precision": 0.893719806763285,
+                        "recall": 0.9516460905349794,
+                        "f1-score": 0.9217737917289487,
+                        "support": 972.0
+                    },
+                    "accuracy": 0.9192386831275721,
+                    "macro avg": {
+                        "precision": 0.9210073181231166,
+                        "recall": 0.9192386831275721,
+                        "f1-score": 0.9191537751839852,
+                        "support": 1944.0
+                    },
+                    "weighted avg": {
+                        "precision": 0.9210073181231166,
+                        "recall": 0.9192386831275721,
+                        "f1-score": 0.9191537751839853,
+                        "support": 1944.0
+                    }
+                }
+            },
+            "10": {
+                "Best Parameters": {
+                    "bootstrap": true,
+                    "ccp_alpha": 0.0,
+                    "class_weight": null,
+                    "criterion": "gini",
+                    "max_depth": null,
+                    "max_features": "sqrt",
+                    "max_leaf_nodes": null,
+                    "max_samples": null,
+                    "min_impurity_decrease": 0.0,
+                    "min_samples_leaf": 2,
+                    "min_samples_split": 2,
+                    "min_weight_fraction_leaf": 0.0,
+                    "n_estimators": 300,
+                    "n_jobs": null,
+                    "oob_score": true,
+                    "random_state": 42,
+                    "verbose": 0,
+                    "warm_start": false
+                },
+                "Best CV Accuracy": 0.920009924674267,
+                "Train Accuracy": 0.9882973251028807,
+                "Test Accuracy": 0.934156378600823,
+                "Classification Report": {
+                    "0.0": {
+                        "precision": 0.9498933901918977,
+                        "recall": 0.9166666666666666,
+                        "f1-score": 0.9329842931937173,
+                        "support": 972.0
+                    },
+                    "1.0": {
+                        "precision": 0.9194831013916501,
+                        "recall": 0.9516460905349794,
+                        "f1-score": 0.9352881698685541,
+                        "support": 972.0
+                    },
+                    "accuracy": 0.934156378600823,
+                    "macro avg": {
+                        "precision": 0.9346882457917739,
+                        "recall": 0.934156378600823,
+                        "f1-score": 0.9341362315311357,
+                        "support": 1944.0
+                    },
+                    "weighted avg": {
+                        "precision": 0.9346882457917739,
+                        "recall": 0.934156378600823,
+                        "f1-score": 0.9341362315311357,
+                        "support": 1944.0
+                    }
+                }
+            }
+        }
+    },
+    "Random Forest": {
+        "Best Parameters": {
+            "bootstrap": true,
+            "ccp_alpha": 0.0,
+            "class_weight": null,
+            "criterion": "gini",
+            "max_depth": null,
+            "max_features": "sqrt",
+            "max_leaf_nodes": null,
+            "max_samples": null,
+            "min_impurity_decrease": 0.0,
+            "min_samples_leaf": 2,
+            "min_samples_split": 2,
+            "min_weight_fraction_leaf": 0.0,
+            "n_estimators": 300,
+            "n_jobs": null,
+            "oob_score": true,
+            "random_state": 42,
+            "verbose": 0,
+            "warm_start": false
+        },
+        "Best CV Accuracy": 0.920009924674267,
+        "Train Accuracy": 0.9882973251028807,
+        "Test Accuracy": 0.934156378600823,
+        "Classification Report": {
+            "0.0": {
+                "precision": 0.9498933901918977,
+                "recall": 0.9166666666666666,
+                "f1-score": 0.9329842931937173,
+                "support": 972.0
+            },
+            "1.0": {
+                "precision": 0.9194831013916501,
+                "recall": 0.9516460905349794,
+                "f1-score": 0.9352881698685541,
+                "support": 972.0
+            },
+            "accuracy": 0.934156378600823,
+            "macro avg": {
+                "precision": 0.9346882457917739,
+                "recall": 0.934156378600823,
+                "f1-score": 0.9341362315311357,
+                "support": 1944.0
+            },
+            "weighted avg": {
+                "precision": 0.9346882457917739,
+                "recall": 0.934156378600823,
+                "f1-score": 0.9341362315311357,
+                "support": 1944.0
+            }
+        }
+    }
+}

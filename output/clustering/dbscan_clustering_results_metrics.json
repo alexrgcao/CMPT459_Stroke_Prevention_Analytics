@@ -1,7 +1,10 @@
 {
-    "Silhouette Score": 0.32344814636491925,
-    "Calinski-Harabasz Index": 2696.2370191635378,
-    "Davies-Bouldin Index": 1.5021922299179706,
+    "Silhouette Score": 0.5201697165575675,
+    "Calinski-Harabasz Index": 5473.409305817837,
+    "Davies-Bouldin Index": 0.6893954678939376,
+    "Adjusted Rand Index": 0.054209177618291665,
     "Number of Clusters": 2,
-    "Noise Points": 16
+    "Noise Points": 5,
+    "Best eps": 1.4093958075841486,
+    "Best min_samples": 12
 }

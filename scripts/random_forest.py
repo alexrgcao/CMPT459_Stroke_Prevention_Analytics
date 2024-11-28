@@ -59,7 +59,7 @@ def plot_feature_importances(model, feature_names, output_file):
     plt.xticks(range(len(importances)), np.array(feature_names)[sorted_indices], rotation=90)
     plt.tight_layout()
     plt.savefig(output_file)
-    plt.show()
+    #plt.show()
 
 def plot_confusion_matrix(y_test, y_test_pred, output_file):
     cm = confusion_matrix(y_test, y_test_pred)
@@ -69,7 +69,7 @@ def plot_confusion_matrix(y_test, y_test_pred, output_file):
     plt.ylabel("True")
     plt.title("Confusion Matrix")
     plt.savefig(output_file)
-    plt.show()
+    #plt.show()
 
 def plot_roc_curve(y_test, y_test_pred_prob, output_file):
     fpr, tpr, _ = roc_curve(y_test, y_test_pred_prob[:, 1])
@@ -103,7 +103,7 @@ def plot_learning_curve(model, X_train, y_train, output_file):
     plt.legend(loc="best")
     plt.grid()
     plt.savefig(output_file)
-    plt.show()
+    #plt.show()
 
 def main(input_file, target_column, output_file, plot_file, output_results_scalar_file, cm_file, roc_file, lc_file):
     data = pd.read_csv(input_file)

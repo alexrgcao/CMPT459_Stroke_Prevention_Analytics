@@ -4,7 +4,7 @@ import pandas as pd
 
 RANDOM_SEED = 42
 
-def apply_mi(data, target, k=10):
+def apply_mi(data, target, k=9):
     
     mi_scores = mutual_info_classif(data, target, random_state=RANDOM_SEED)
     

@@ -44,6 +44,12 @@ rule all:
         "output/classification/random_forest/random_forest_cm.png",
         "output/classification/random_forest/random_forest_roc_plot.png",
         "output/classification/random_forest/random_forest_lc_plot.png",
+        "output/classification/random_forest/random_forest_results_cv_scores_with_feature_selection.csv",
+        "output/classification/random_forest/random_forest_results_scalar_metrics_with_feature_selection.csv",
+        "output/classification/random_forest/random_forest_plot_with_feature_selection.png",
+        "output/classification/random_forest/random_forest_cm_with_feature_selection.png",
+        "output/classification/random_forest/random_forest_roc_plot_with_feature_selection.png",
+        "output/classification/random_forest/random_forest_lc_plot_with_feature_selection.png",
         "output/classification/svm/svm_results_scalar_metrics.csv",
         "output/classification/svm/svm_confusion_matrix.png",
         "output/classification/svm/svm_roc_curve.png",
@@ -205,6 +211,23 @@ rule random_forest_classifier:
         "output/classification/random_forest/random_forest_cm.png",
         "output/classification/random_forest/random_forest_roc_plot.png",
         "output/classification/random_forest/random_forest_lc_plot.png"
+    params:
+        target=TARGET,
+        random_seed=RANDOM_SEED
+    script:
+        "scripts/random_forest.py"
+
+# Random Forest Classifier With Feature Selection Rule
+rule random_forest_classifier_with_feature_selection:
+    input:
+        "output/feature_selection/mutual_information_reduced_features.csv"
+    output:
+        "output/classification/random_forest/random_forest_results_cv_scores_with_feature_selection.csv",
+        "output/classification/random_forest/random_forest_results_scalar_metrics_with_feature_selection.csv",
+        "output/classification/random_forest/random_forest_plot_with_feature_selection.png",
+        "output/classification/random_forest/random_forest_cm_with_feature_selection.png",
+        "output/classification/random_forest/random_forest_roc_plot_with_feature_selection.png",
+        "output/classification/random_forest/random_forest_lc_plot_with_feature_selection.png"
     params:
         target=TARGET,
         random_seed=RANDOM_SEED

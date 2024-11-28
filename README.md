@@ -565,19 +565,6 @@ Table: Performance of SVM classifier with and without RFE
 
 Computational Efficiency: RFE faster due to a smaller feature set, reducing computational overhead during training and inference.
 
-**Confusion Matrix:**
-
--   *True Negatives:* 741 cases correctly classified as non-stroke.
-
--   *False Positives:* 232 non-stroke cases misclassified as stroke.
-
--   *True Positives:* 865 stroke cases correctly identified.
-
--   *False Negatives:* 107 stroke cases missed by the model.
-
-**The ROC curve** (AUC = 0.91) demonstrates a high true-positive rate
-and a low false-positive rate across different thresholds.
-
 ##### Mutual Information
 The MI scores of each features are shown below. Features with moderate to low MI scores were also included in the feature selection process. The selected features are: ['age', 'hypertension', 'heart\_disease', 'avg\_glucose\_level', 'bmi', 'glucose\_level\_cluster', 'work\_type\_Self-employed', 'work\_type\_children', 'smoking\_status\_never smoked', 'smoking\_status\_smokes']
 
